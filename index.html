@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sakinah Studio — Web Design, Facebook Ads & AI Training</title>
+  <meta name="description" content="Sakinah Studio crafts elegant websites, runs Facebook ad campaigns that convert, and trains teams to work smarter with AI.">
+  <meta property="og:title" content="Sakinah Studio — Design. Advertise. Empower.">
+  <meta property="og:description" content="Elegant websites, Facebook ads that convert, and practical AI training.">
+  <meta name="theme-color" content="#0d0f14">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0f14'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' text-anchor='middle' fill='%23d6b46a'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --bg-2: #13161d;
+      --card: #171b24;
+      --line: rgba(214, 180, 106, 0.18);
+      --gold: #d6b46a;
+      --gold-2: #f1dca4;
+      --text: #ece8df;
+      --muted: #a39f97;
+      --radius: 18px;
+      --max: 1160px;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { width: min(var(--max), 100% - 32px); margin-inline: auto; }
+    .eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500;
+    }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.1; }
+    h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); margin: 14px 0 18px; }
+    .lead { color: var(--muted); max-width: 620px; font-size: 1.05rem; }
+    .gold { color: var(--gold); font-style: italic; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 28px; border-radius: 999px; font-weight: 500; font-size: 0.95rem;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+      cursor: pointer; border: 0; font-family: var(--sans);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      color: #1a1408;
+      box-shadow: 0 10px 30px -10px rgba(214, 180, 106, .55);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(214, 180, 106, .7); }
+    .btn-ghost { border: 1px solid var(--line); color: var(--text); background: transparent; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Nav */
+    header {
+      position: fixed; inset: 0 0 auto 0; z-index: 50;
+      transition: background .3s ease, border-color .3s ease, backdrop-filter .3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled {
+      background: rgba(13, 15, 20, .82); backdrop-filter: blur(14px);
+      border-color: var(--line);
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+    .logo { font-family: var(--serif); font-size: 1.7rem; letter-spacing: .02em; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 34px; align-items: center; font-size: .92rem; }
+    .nav-links a:not(.btn) { color: var(--muted); transition: color .2s; }
+    .nav-links a:not(.btn):hover { color: var(--gold); }
+    .nav-links .btn { padding: 10px 22px; }
+    .menu-btn { display: none; background: none; border: 0; color: var(--text); cursor: pointer; padding: 8px; }
+    .menu-btn svg { width: 26px; height: 26px; }
+
+    /* Hero */
+    .hero {
+      position: relative; min-height: 100vh; display: grid; place-items: center;
+      padding: 130px 0 90px; overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: -20%;
+      background:
+        radial-gradient(40% 35% at 75% 25%, rgba(214, 180, 106, .16), transparent 70%),
+        radial-gradient(35% 30% at 15% 80%, rgba(120, 140, 200, .10), transparent 70%);
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 80px 80px; opacity: .18;
+      mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+    }
+    @keyframes drift { to { transform: translate(-4%, 3%) scale(1.08); } }
+    .hero-inner { position: relative; z-index: 1; text-align: center; }
+    .hero h1 { font-size: clamp(3rem, 9vw, 6.6rem); margin: 22px 0 26px; letter-spacing: -.01em; }
+    .hero h1 em { color: var(--gold); }
+    .hero .lead { margin: 0 auto 40px; font-size: 1.15rem; }
+    .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .rotator { display: inline-block; min-width: 1ch; color: var(--gold); font-style: italic; }
+    .rotator::after { content: "|"; font-style: normal; animation: blink 1s steps(1) infinite; margin-left: 2px; color: var(--gold); opacity: .7; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 1;
+      font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .scroll-hint i { width: 1px; height: 40px; background: linear-gradient(var(--gold), transparent); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .3; } }
+
+    /* Marquee */
+    .marquee { border-block: 1px solid var(--line); padding: 22px 0; overflow: hidden; background: var(--bg-2); }
+    .marquee-track { display: flex; gap: 60px; width: max-content; animation: scroll 32s linear infinite; }
+    .marquee span { font-family: var(--serif); font-size: 1.6rem; white-space: nowrap; color: var(--muted); }
+    .marquee span b { color: var(--gold); font-weight: 500; margin-right: 60px; }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    section { padding: 120px 0; }
+
+    /* Services */
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; flex-wrap: wrap; margin-bottom: 64px; }
+    .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .service {
+      position: relative; padding: 42px 34px 38px; border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--card), var(--bg-2));
+      border: 1px solid var(--line); overflow: hidden;
+      transition: transform .35s ease, border-color .35s ease;
+    }
+    .service::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(60% 50% at 50% 0%, rgba(214, 180, 106, .14), transparent 70%);
+      opacity: 0; transition: opacity .35s ease;
+    }
+    .service:hover { transform: translateY(-6px); border-color: rgba(214, 180, 106, .45); }
+    .service:hover::before { opacity: 1; }
+    .service > * { position: relative; }
+    .num { font-family: var(--serif); color: var(--gold); font-size: 1rem; letter-spacing: .1em; }
+    .icon {
+      width: 60px; height: 60px; border-radius: 16px; display: grid; place-items: center;
+      border: 1px solid var(--line); margin: 26px 0 24px; color: var(--gold);
+      background: rgba(214, 180, 106, .06);
+    }
+    .icon svg { width: 28px; height: 28px; }
+    .service h3 { font-size: 2rem; margin-bottom: 12px; }
+    .service p { color: var(--muted); font-size: .96rem; }
+    .service ul { list-style: none; margin: 24px 0 30px; display: grid; gap: 10px; font-size: .92rem; }
+    .service li { display: flex; gap: 12px; align-items: baseline; }
+    .service li::before { content: "◆"; color: var(--gold); font-size: .55rem; transform: translateY(-2px); }
+    .service .link { color: var(--gold); font-weight: 500; font-size: .92rem; display: inline-flex; gap: 8px; align-items: center; }
+    .service .link:hover { gap: 14px; }
+    .service .link { transition: gap .25s ease; }
+
+    /* Process */
+    .process { background: var(--bg-2); border-block: 1px solid var(--line); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; }
+    .step { padding: 34px 28px; border-left: 1px solid var(--line); }
+    .step:first-child { border-left: 0; padding-left: 0; }
+    .step b { font-family: var(--serif); font-size: 3rem; color: var(--gold); font-weight: 500; display: block; line-height: 1; margin-bottom: 18px; }
+    .step h3 { font-size: 1.5rem; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: .93rem; }
+
+    /* Why */
+    .why { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+    .quote {
+      font-family: var(--serif); font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.25;
+      border-left: 2px solid var(--gold); padding-left: 32px; font-style: italic;
+    }
+    .quote small { display: block; font-family: var(--sans); font-style: normal; font-size: .8rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); margin-top: 24px; }
+    .values { display: grid; gap: 22px; }
+    .value { display: grid; grid-template-columns: 44px 1fr; gap: 18px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    .value:last-child { border-bottom: 0; }
+    .value .dot { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); color: var(--gold); }
+    .value .dot svg { width: 20px; height: 20px; }
+    .value h3 { font-size: 1.4rem; margin-bottom: 4px; }
+    .value p { color: var(--muted); font-size: .93rem; }
+
+    /* Packages */
+    .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+    .pkg { padding: 40px 34px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--card); display: flex; flex-direction: column; }
+    .pkg.featured { background: linear-gradient(160deg, #221d12, var(--card) 60%); border-color: rgba(214, 180, 106, .55); position: relative; }
+    .pkg.featured .tag { position: absolute; top: -13px; left: 34px; background: var(--gold); color: #1a1408; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; font-weight: 600; }
+    .pkg h3 { font-size: 1.9rem; }
+    .pkg .for { color: var(--muted); font-size: .9rem; margin: 6px 0 24px; }
+    .pkg ul { list-style: none; display: grid; gap: 12px; font-size: .93rem; margin-bottom: 34px; flex: 1; }
+    .pkg li { display: flex; gap: 12px; }
+    .pkg li svg { flex: none; width: 18px; height: 18px; color: var(--gold); margin-top: 4px; }
+    .pkg .btn { justify-content: center; }
+
+    /* CTA / Contact */
+    .contact {
+      position: relative; border-radius: 28px; overflow: hidden;
+      border: 1px solid var(--line);
+      background: radial-gradient(80% 120% at 100% 0%, rgba(214, 180, 106, .18), transparent 60%), var(--bg-2);
+      padding: 72px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    }
+    form { display: grid; gap: 16px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); display: grid; gap: 8px; }
+    input, select, textarea {
+      width: 100%; background: rgba(255, 255, 255, .03); border: 1px solid var(--line); border-radius: 12px;
+      padding: 14px 16px; color: var(--text); font-family: var(--sans); font-size: .95rem; font-weight: 300;
+      transition: border-color .2s, background .2s; letter-spacing: normal; text-transform: none;
+    }
+    select option { background: var(--bg-2); }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); background: rgba(214, 180, 106, .05); }
+    textarea { resize: vertical; min-height: 120px; }
+    .contact-info { display: grid; gap: 18px; margin-top: 34px; }
+    .contact-info a, .contact-info div { display: flex; gap: 14px; align-items: center; color: var(--muted); }
+    .contact-info svg { width: 20px; height: 20px; color: var(--gold); flex: none; }
+    .contact-info a:hover { color: var(--gold); }
+
+    footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: .85rem; }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .services, .packages { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .step { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }
+      .why, .contact { grid-template-columns: 1fr; gap: 48px; }
+      .contact { padding: 48px 28px; }
+    }
+    @media (max-width: 760px) {
+      .menu-btn { display: block; }
+      .nav-links {
+        position: fixed; inset: 76px 0 auto 0; flex-direction: column; gap: 22px; padding: 30px 16px 36px;
+        background: rgba(13, 15, 20, .97); border-bottom: 1px solid var(--line);
+        transform: translateY(-120%); transition: transform .35s ease; z-index: -1;
+      }
+      .nav-links.open { transform: none; }
+      section { padding: 84px 0; }
+      .steps, .row { grid-template-columns: 1fr; }
+      .section-head { margin-bottom: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="top">
+    <nav class="wrap">
+      <a href="#" class="logo">Sakinah<span>.</span></a>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" id="menuBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#packages">Packages</a>
+        <a href="#contact" class="btn btn-gold">Let's Talk</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="eyebrow reveal">Design &nbsp;·&nbsp; Advertise &nbsp;·&nbsp; Empower</p>
+        <h1 class="reveal">Elevate your brand<br>with <em>quiet confidence.</em></h1>
+        <p class="lead reveal">We craft <span class="rotator" id="rotator">stunning websites</span><br>
+          for ambitious businesses that want to look world‑class and grow with intention.</p>
+        <div class="hero-cta reveal">
+          <a href="#contact" class="btn btn-gold">Start Your Project
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#services" class="btn btn-ghost">Explore Services</a>
+        </div>
+      </div>
+      <div class="scroll-hint">Scroll<i></i></div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Web Design <b>✦</b>Facebook Ads <b>✦</b>AI Training <b>✦</b>Brand Presence <b>✦</b>Lead Generation <b>✦</b></span>
+        <span>Web Design <b>✦</b>Facebook Ads <b>✦</b>AI Training <b>✦</b>Brand Presence <b>✦</b>Lead Generation <b>✦</b></span>
+      </div>
+    </div>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="reveal">
+            <p class="eyebrow">What We Do</p>
+            <h2>Three crafts. <span class="gold">One standard.</span></h2>
+          </div>
+          <p class="lead reveal">Every service is built around a single goal: helping you attract the right people, earn their trust, and turn attention into revenue.</p>
+        </div>
+
+        <div class="services">
+          <article class="service reveal">
+            <span class="num">01</span>
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 18v3"/></svg>
+            </div>
+            <h3>Web Design</h3>
+            <p>Beautiful, fast, mobile‑first websites that make a lasting first impression and guide visitors to take action.</p>
+            <ul>
+              <li>Custom design tailored to your brand</li>
+              <li>Responsive on every device</li>
+              <li>SEO‑ready structure &amp; speed</li>
+              <li>Landing pages built to convert</li>
+            </ul>
+            <a href="#contact" class="link" data-service="Web Design">Get a website →</a>
+          </article>
+
+          <article class="service reveal">
+            <span class="num">02</span>
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            </div>
+            <h3>Facebook Ads</h3>
+            <p>Strategic Meta ad campaigns that put your offer in front of the right audience — and keep your cost per result low.</p>
+            <ul>
+              <li>Audience research &amp; targeting</li>
+              <li>Scroll‑stopping ad creative &amp; copy</li>
+              <li>Pixel setup &amp; retargeting</li>
+              <li>Clear monthly performance reports</li>
+            </ul>
+            <a href="#contact" class="link" data-service="Facebook Ads">Grow with ads →</a>
+          </article>
+
+          <article class="service reveal">
+            <span class="num">03</span>
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4L12 3Z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9L18 15Z"/></svg>
+            </div>
+            <h3>AI Training</h3>
+            <p>Hands‑on training that helps you and your team use AI tools confidently to save hours and do better work.</p>
+            <ul>
+              <li>Beginner to advanced sessions</li>
+              <li>Prompting &amp; everyday workflows</li>
+              <li>AI for content, marketing &amp; ops</li>
+              <li>1‑on‑1 or team workshops</li>
+            </ul>
+            <a href="#contact" class="link" data-service="AI Training">Book training →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="reveal">
+            <p class="eyebrow">How We Work</p>
+            <h2>A calm, <span class="gold">clear process.</span></h2>
+          </div>
+          <p class="lead reveal">No jargon, no chaos. You always know what's happening, what's next, and why it matters.</p>
+        </div>
+        <div class="steps">
+          <div class="step reveal"><b>01</b><h3>Discover</h3><p>We learn your goals, audience and what success looks like for you.</p></div>
+          <div class="step reveal"><b>02</b><h3>Strategize</h3><p>A focused plan with timelines, deliverables and clear outcomes.</p></div>
+          <div class="step reveal"><b>03</b><h3>Create</h3><p>Design, build, launch and train — with your feedback at every step.</p></div>
+          <div class="step reveal"><b>04</b><h3>Grow</h3><p>We measure, refine and optimise so results keep compounding.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap why">
+        <blockquote class="quote reveal">
+          “Sakinah means tranquility. We bring that calm to your digital growth — so you can focus on what you do best.”
+          <small>Our Promise</small>
+        </blockquote>
+        <div class="values">
+          <div class="value reveal">
+            <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8L12 2Z"/></svg></div>
+            <div><h3>Premium quality</h3><p>Polished work that makes your business look as good as it truly is.</p></div>
+          </div>
+          <div class="value reveal">
+            <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></div>
+            <div><h3>Results‑driven</h3><p>Every design choice and ad dollar is tied to a measurable goal.</p></div>
+          </div>
+          <div class="value reveal">
+            <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></div>
+            <div><h3>Personal support</h3><p>You work directly with us — responsive, honest and always on your side.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" class="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="reveal">
+            <p class="eyebrow">Packages</p>
+            <h2>Choose your <span class="gold">starting point.</span></h2>
+          </div>
+          <p class="lead reveal">Every package is tailored after a free consultation, so you only pay for what moves your business forward.</p>
+        </div>
+        <div class="packages">
+          <div class="pkg reveal">
+            <h3>Launch</h3>
+            <p class="for">For new businesses getting online</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Up to 5‑page website</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Mobile‑friendly &amp; fast</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Contact form &amp; WhatsApp link</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Basic SEO setup</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost" data-service="Web Design">Request a quote</a>
+          </div>
+          <div class="pkg featured reveal">
+            <span class="tag">Most Popular</span>
+            <h3>Growth</h3>
+            <p class="for">Website + ads to bring in customers</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Everything in Launch</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>High‑converting landing page</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Facebook &amp; Instagram ad campaigns</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Pixel, retargeting &amp; reporting</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold" data-service="Web Design + Facebook Ads">Get started</a>
+          </div>
+          <div class="pkg reveal">
+            <h3>AI Academy</h3>
+            <p class="for">For individuals &amp; teams</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Live, hands‑on sessions</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Practical prompting playbook</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Real use cases for your work</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Follow‑up support</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost" data-service="AI Training">Book a session</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact reveal">
+          <div>
+            <p class="eyebrow">Let's Work Together</p>
+            <h2>Ready to stand out <span class="gold">beautifully?</span></h2>
+            <p class="lead">Tell us a little about your goals. We'll reply within 24 hours with ideas and a clear next step — no pressure, no obligation.</p>
+            <div class="contact-info">
+              <a href="#" id="emailLink">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                <span id="emailText"></span>
+              </a>
+              <div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                Replies within 24 hours
+              </div>
+            </div>
+          </div>
+          <form id="contactForm">
+            <div class="row">
+              <label>Name <input name="name" required autocomplete="name" placeholder="Your name"></label>
+              <label>Email <input name="email" type="email" required autocomplete="email" placeholder="you@company.com"></label>
+            </div>
+            <label>Service
+              <select name="service" id="serviceSelect">
+                <option>Web Design</option>
+                <option>Facebook Ads</option>
+                <option>AI Training</option>
+                <option>Web Design + Facebook Ads</option>
+                <option>Not sure yet</option>
+              </select>
+            </label>
+            <label>Message <textarea name="message" required placeholder="Tell us about your project…"></textarea></label>
+            <button class="btn btn-gold" type="submit" style="justify-content:center">Send Message
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <a href="#" class="logo">Sakinah<span>.</span></a>
+      <span>© <span id="year"></span> Sakinah Studio. Web Design · Facebook Ads · AI Training</span>
+    </div>
+  </footer>
+
+  <script>
+    // ✏️ Set your contact email here — the form and email link use it.
+    const CONTACT_EMAIL = "hello@example.com";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const emailLink = document.getElementById("emailLink");
+    emailLink.href = "mailto:" + CONTACT_EMAIL;
+    document.getElementById("emailText").textContent = CONTACT_EMAIL;
+
+    // Header background on scroll
+    const header = document.getElementById("top");
+    const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 30);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    menuBtn.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", open);
+    });
+    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }));
+
+    // Pre-select service when a service CTA is clicked
+    const serviceSelect = document.getElementById("serviceSelect");
+    document.querySelectorAll("[data-service]").forEach(el =>
+      el.addEventListener("click", () => { serviceSelect.value = el.dataset.service; })
+    );
+
+    // Typing rotator
+    const words = ["stunning websites", "Facebook ads that convert", "practical AI training"];
+    const rot = document.getElementById("rotator");
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      let w = 0, i = words[0].length, deleting = true;
+      const tick = () => {
+        const word = words[w];
+        rot.textContent = word.slice(0, i);
+        if (deleting) {
+          if (i-- === 0) { deleting = false; w = (w + 1) % words.length; i = 0; }
+        } else if (i++ === words[w].length) {
+          deleting = true;
+          return setTimeout(tick, 2200);
+        }
+        setTimeout(tick, deleting ? 35 : 70);
+      };
+      setTimeout(tick, 2200);
+    }
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el, idx) => {
+      el.style.transitionDelay = (idx % 4) * 90 + "ms";
+      io.observe(el);
+    });
+
+    // Contact form → opens the visitor's email app with the message filled in
+    document.getElementById("contactForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const subject = `New enquiry: ${f.get("service")} — ${f.get("name")}`;
+      const body = `Name: ${f.get("name")}\nEmail: ${f.get("email")}\nService: ${f.get("service")}\n\n${f.get("message")}`;
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  </script>
+</body>
+</html>
